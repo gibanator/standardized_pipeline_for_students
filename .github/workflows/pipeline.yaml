@@ -24,11 +24,11 @@ jobs:
       - id: out
         run: |
           has_go=false
-          [[ -d templates/go && $(ls -A templates/go) ]] && has_go=true
+          [[ -d templates/go && $(find templates/go -type f -name "*.go" | wc -l) -gt 0 ]] && has_go=true
           has_py=false
-          [[ -d templates/python && $(ls -A templates/python) ]] && has_py=true
+          [[ -d templates/python && $(find templates/python -type f -name "*.py" | wc -l) -gt 0 ]] && has_py=true
           has_node=false
-          [[ -d templates/node && $(ls -A templates/node) ]] && has_node=true
+          [[ -d templates/node && $(find templates/node -type f -name "*.js" | wc -l) -gt 0 ]] && has_node=true
 
           echo "has_go=$has_go"     >> "$GITHUB_OUTPUT"
           echo "has_py=$has_py"     >> "$GITHUB_OUTPUT"
