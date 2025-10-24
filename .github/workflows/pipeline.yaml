@@ -34,4 +34,25 @@ jobs:
           echo "has_py=$has_py"     >> "$GITHUB_OUTPUT"
           echo "has_node=$has_node" >> "$GITHUB_OUTPUT"
 
-  
+  build_and_test:
+    name: Build and test
+    needs: detect
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # ---- Go ----
+      - name: Setup Go
+        if: needs.detect.outputs.has_go == 'true'
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22.x'
+          cache: true
+
+      - name: Go build and test
+        if: needs.detect.outputs.has_go == 'true'
+        working-directory: templates/go
+        run: |
+          go test ./...
+          go build ./...
+
