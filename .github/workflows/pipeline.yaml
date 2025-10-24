@@ -1,9 +1,37 @@
 on:
   push:
-    paths: 
-      - 'templates/**'
-      - '.github/workflows/**'
+    branches:
+      - main
+      - develop
   pull_request:
-    paths:
-      - 'templates/**'
-      - '.github/workflows/**'
+    branches:
+      - main
+      
+defaults:
+  run:
+    shell: bash
+    
+jobs:
+  detect:
+    name: Detect language folders
+    runs-on: ubuntu-latest
+    outputs:
+      has_go: ${{ steps.out.outputs.has_go }}
+      has_py: ${{ steps.out.outputs.has_py }}
+      has_node: ${{ steps.out.outputs.has_node }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: out
+        run: |
+          has_go=false
+          [[ -d templates/go && $(ls -A templates/go) ]] && has_go=true
+          has_py=false
+          [[ -d templates/python && $(ls -A templates/python) ]] && has_py=true
+          has_node=false
+          [[ -d templates/node && $(ls -A templates/node) ]] && has_node=true
+
+          echo "has_go=$has_go"     >> "$GITHUB_OUTPUT"
+          echo "has_py=$has_py"     >> "$GITHUB_OUTPUT"
+          echo "has_node=$has_node" >> "$GITHUB_OUTPUT"
+
+  
