@@ -1,0 +1,9 @@
+on:
+  push:
+    paths: 
+      - 'templates/**'
+      - '.github/workflows/**'
+  pull_request:
+    paths:
+      - 'templates/**'
+      - '.github/workflows/**'
