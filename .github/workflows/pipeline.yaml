@@ -1,11 +1,4 @@
-on:
-  push:
-    branches:
-      - main
-      - develop
-  pull_request:
-    branches:
-      - main
+on: [push, pull_request]
       
 defaults:
   run:
@@ -55,4 +48,37 @@ jobs:
         run: |
           go test ./...
           go build ./...
+          
+      # ---- Python ----
+      - name: Setup Python
+        if: needs.detect.outputs.has_py == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+          cache-dependency-path: templates/python/requirements.txt
+
+      - name: Python deps and tests
+        if: needs.detect.outputs.has_py == 'true'
+        working-directory: templates/python
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pytest -q
+
+      # ---- Node.js ----
+      - name: Setup Node.js
+        if: needs.detect.outputs.has_node == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: templates/node/package-lock.json
+
+      - name: Node install and tests
+        if: needs.detect.outputs.has_node == 'true'
+        working-directory: templates/node
+        run: |
+          npm ci
+          npm test --silent
 
