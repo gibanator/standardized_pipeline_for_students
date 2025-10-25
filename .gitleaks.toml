@@ -4,4 +4,4 @@ useDefault = true
 [[rules]]
 id = "db-pass"
 description = "DB password"
-regex = '''/(?i)\b(PASS(WORD)?|SECRET|TOKEN|KEY)\b\s*[:=]\s*['"]?[A-Za-z0-9!@#$%^&*()_+=\-]*['"]?/mg'''
+regex = '''(?i)\b(PASS(WORD)?|SECRET|TOKEN|KEY)\b\s*[:=]\s*['"]?[A-Za-z0-9!@#$%^&*()_+=\-]+['"]?'''
