@@ -1,4 +1,7 @@
+[extend]
+useDefault = true
+
 [[rules]]
 id = "db-pass"
 description = "DB password"
-regex = '''(?i)(DB_PASS|DATABASE_PASSWORD)\s*[:=]\s*\S{8,}'''
+regex = '''(?i)\b(PASS(WORD)?|SECRET|TOKEN|KEY)\b\s*[:=]\s*['"]?[A-Za-z0-9!@#$%^&*()_+=\-]{8,}['"]?'''
