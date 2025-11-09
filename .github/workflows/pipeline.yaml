@@ -12,6 +12,7 @@ jobs:
       has_go: ${{ steps.out.outputs.has_go }}
       has_py: ${{ steps.out.outputs.has_py }}
       has_node: ${{ steps.out.outputs.has_node }}
+      has_java: ${{ steps.out.outputs.has_java }}
     steps:
       - uses: actions/checkout@v4
       - id: out
@@ -22,10 +23,14 @@ jobs:
           [[ -d templates/python && $(find templates/python -type f -name "*.py" | wc -l) -gt 0 ]] && has_py=true
           has_node=false
           [[ -d templates/node && $(find templates/node -type f -name "*.js" | wc -l) -gt 0 ]] && has_node=true
+           has_java=false
+          [[ -d templates/java && $(find templates/java -type f -name "pom.xml" | wc -l) -gt 0 ]] && has_java=true
+
 
           echo "has_go=$has_go"     >> "$GITHUB_OUTPUT"
           echo "has_py=$has_py"     >> "$GITHUB_OUTPUT"
           echo "has_node=$has_node" >> "$GITHUB_OUTPUT"
+          echo "has_java=$has_java" >> "$GITHUB_OUTPUT"
 
   build_and_test:
     name: Build and test
@@ -82,3 +87,17 @@ jobs:
           npm ci
           npm test --silent
 
+      # ---- Java ----
+      - name: Setup Java
+        if: needs.detect.outputs.has_java == 'true'
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'maven'
+
+      - name: Maven build and test
+        if: needs.detect.outputs.has_java == 'true'
+        working-directory: templates/java
+        run: |
+          mvn -B -q verify
