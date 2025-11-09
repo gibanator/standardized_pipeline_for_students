@@ -1,0 +1,5 @@
+# needed dependencies for the project
+
+pytest     # used for testing
+
+# === Other deps ===
