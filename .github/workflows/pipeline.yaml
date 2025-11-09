@@ -68,7 +68,7 @@ jobs:
         working-directory: templates/python
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
           pytest -q
 
       # ---- Node.js ----
