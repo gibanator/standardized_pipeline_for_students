@@ -14,7 +14,7 @@ The goal is to encourage consistent, maintainable, and secure workflows, similar
 
 ## Usage
 1. Copy this repository.
-2. Match `.github/workflows/ci.yml` to your language stack, if needed.
+2. Match `.github/workflows/pipeline.yaml` to your language stack, if needed
 3. Enable required repository settings and precaution (see `docs/github_hardening`):
    - Create `.gitignore` file, and put filenames with secrets in them
    - Secret scanning and push protection
