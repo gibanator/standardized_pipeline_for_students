@@ -8,7 +8,7 @@ The goal is to encourage consistent, maintainable, and secure workflows, similar
 ## Features
 - Ready-to-use GitHub Actions workflows
 - Multi-language support (Java, Python, Go)
-- Automated testing, and building scanning
+- Automated testing, and building 
 - Secret scanning enabled
 - Example environment setup and branch protection guidelines - see `docs/github_hardening`
 
