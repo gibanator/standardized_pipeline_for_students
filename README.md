@@ -19,7 +19,8 @@ The goal is to encourage consistent, maintainable, and secure workflows, similar
    - Create `.gitignore` file, and put filenames with secrets in them
    - Secret scanning and push protection
    - Branch protection for `main`
-4. Push code to trigger the pipeline and verify CI status checks
+4. Configure needed tests in respective files
+5. Push code to trigger the pipeline and verify CI status checks
 
 ## Contributing
 If you wish to contribute, pull requests are welcome for improving examples or workflows.
